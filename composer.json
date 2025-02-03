@@ -1,5 +1,17 @@
 {
+    "name": "youcode/modern-php-mvc-postgresql-architecture",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "9asdaoui",
+            "email": "oussamaqasdaoui@gmail.com"
+        }
+    ],
     "require": {
-        "twig/twig": "^3.19"
+        "twig/twig": "^3.0"
     }
 }
