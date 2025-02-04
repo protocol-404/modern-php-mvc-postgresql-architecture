@@ -6,6 +6,8 @@
     <title>Home page</title>
 </head>
 <body>
+
+<a href="/hello"> click heee </a>
     
 </body>
 </html>
