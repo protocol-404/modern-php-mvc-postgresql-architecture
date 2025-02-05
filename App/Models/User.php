@@ -20,14 +20,4 @@ class User {
         $this->password = $password;
     }
 
-    public function signin() {
-        $pdo = Database::getConnection();
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->execute(['email' => $this->email]);
-        $user = $stmt->fetch();
-        if ($user && password_verify($this->password, $user['password'])) {
-            return $user;
-        }
-        return false;
-    }
 }
