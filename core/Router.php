@@ -1,18 +1,17 @@
 <?php
 
 class Router {
-    private $routes = [];
 
-    // public function addRoute($method, $route, $controller, $action) {
-    //     $this->routes[$method][$route] = array(
-    //         'controller' => $controller,
-    //         'action'     => $action
-    //     );
-    // }
+    private $routes = [
+        'register' => [
+        'controller' => "class",
+        'action' => 'register',
+        'params' => ['username', 'email','password', 'role'],
+        ],
+    ];
 
     public function dispatch($uri, $method) {
         if (!isset($this->routes[$method])) {
-            // echo "Unsupported method";
             return "Unsupported method";
         }
 
@@ -21,13 +20,17 @@ class Router {
             $controllerName = $handler['controller'];
             $method = $handler['method'];
             $actionName = $handler['action'];
-            $Params = $handler['params'];
+            $params = $handler['params'];
 
             if (class_exists($controllerName)) {
-                $controller = new $controllerName();
-                if (method_exists($controller, $actionName)) {
-                    // $controller->$actionName();
-                    $controller->$actionName($Params);
+                $object = new $controllerName();
+                if (method_exists($object, $actionName)) {
+                    $inputs = [];
+                    foreach ($params as $param) {
+                        $inputs[] = $_REQUEST[$param];
+                    }
+                    call_user_func_array([$object, $method], $inputs);
+                    $object->$actionName($params);
                     return;
                 } else {
                     echo "Action '$actionName' not found in controller '$controllerName'";

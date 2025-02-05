@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 
@@ -12,7 +14,7 @@ class Database {
     private $error;
 
     public function __construct() {
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
         $dotenv->load();
         $this->host = $_ENV['DB_HOST'];
         $this->db = $_ENV['DB_NAME'];
@@ -21,8 +23,9 @@ class Database {
         
         $dsn = "pgsql:host={$this->host};dbname={$this->db}";
         try {
-            self::$pdo = new PDO($dsn, $this->user, $this->pass);
-        } catch (PDOException $e) {
+            self::$pdo = new \PDO($dsn, $this->user, $this->pass);
+            echo "Connected to the database";
+        } catch (\PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;
         }
@@ -32,3 +35,7 @@ class Database {
         return self::$pdo;
     }
 }
+
+
+new Database();
+Database::getConnection();

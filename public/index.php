@@ -1,2 +1,2 @@
 <?php
-riquire_once '../core/Router.php';
+// riquire_once '../core/Router.php';
