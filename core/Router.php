@@ -1,12 +1,21 @@
 <?php
 
+namespace Core;
+
+use App\Controllers\UserController;
+
 class Router {
 
     private $routes = [
+        'singUp' => [
+        'controller' => UserController::class,
+        'action' => 'singUp',
+        'params' => ['username', 'email','password'],
+        ],
         'register' => [
-        'controller' => "class",
+        'controller' => UserController::class,
         'action' => 'register',
-        'params' => ['username', 'email','password', 'role'],
+        'params' => [],
         ],
     ];
 
