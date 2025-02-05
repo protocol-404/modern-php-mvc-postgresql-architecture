@@ -1,13 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-$router[
-    '/'=>'controllers/controllerIndex.php'
-];
-
-
-
-=======
 class Router {
     private $routes = [];
 
@@ -50,4 +42,3 @@ class Router {
         echo "Route not found";
     }
 }
->>>>>>> d445027cfc050aaefa8a0f0da02751128a41119e
