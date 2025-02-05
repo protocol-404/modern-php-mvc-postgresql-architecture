@@ -20,6 +20,7 @@ Thumbs.db
 # Ignore logs and caches
 /logs/
 /cache/
+/cache/twig/
 /node_modules/
 
 # Ignore deployment files

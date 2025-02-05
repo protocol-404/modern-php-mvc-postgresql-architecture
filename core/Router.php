@@ -7,39 +7,48 @@ use App\Controllers\UserController;
 class Router {
 
     private $routes = [
-        'singUp' => [
-        'controller' => UserController::class,
-        'action' => 'singUp',
-        'params' => ['username', 'email','password'],
-        ],
-        'register' => [
-        'controller' => UserController::class,
-        'action' => 'register',
-        'params' => [],
-        ],
+            'signup' => [
+                'controller' => UserController::class,
+                'action' => 'signUp',
+                'method' => 'POST',
+                'params' => ['username', 'email','password'],
+            ],
+            'register' => [
+                'controller' => UserController::class,
+                'action' => 'register',
+                'method' => 'POST',
+                'params' => [],
+            ],
     ];
 
     public function dispatch($uri, $method) {
-        if (!isset($this->routes[$method])) {
+        if (!isset($this->routes[$uri])) {
+            echo "Unsupported method";
+            print_r($this->routes);
             return "Unsupported method";
         }
 
-        if (isset($this->routes[$method][$uri])) {
-            $handler = $this->routes[$method][$uri];
+        if (isset($this->routes[$uri])) {
+            $handler = $this->routes[$uri];
             $controllerName = $handler['controller'];
-            $method = $handler['method'];
+            // $method = $handler['method'];
             $actionName = $handler['action'];
             $params = $handler['params'];
 
             if (class_exists($controllerName)) {
                 $object = new $controllerName();
+                // print_r($object);
                 if (method_exists($object, $actionName)) {
                     $inputs = [];
                     foreach ($params as $param) {
-                        $inputs[] = $_REQUEST[$param];
+                        if (isset($_REQUEST[$param])) {
+                            $inputs[] = $_REQUEST[$param];
+                        } else {
+                            echo "Missing required parameter: $param";
+                            return;
+                        }
                     }
-                    call_user_func_array([$object, $method], $inputs);
-                    $object->$actionName($params);
+                    $object->$actionName(...$inputs);
                     return;
                 } else {
                     echo "Action '$actionName' not found in controller '$controllerName'";
@@ -49,8 +58,9 @@ class Router {
                 echo "Controller '$controllerName' not found";
                 return;
             }
+        }else{
+            echo "Route not found";
+            return;
         }
-
-        echo "Route not found";
     }
 }

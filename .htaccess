@@ -1,5 +1,10 @@
-# RewriteEngine On
+RewriteEngine On
 
-# Redirect all requests to public/index.php
-# RewriteCond %{REQUEST_URI} !^/public/
-# RewriteRule ^(.*)$ /public/index.php [L]
+# Set the base to handle all requests relative to the root
+RewriteBase /
+
+# Ensure the root path also redirects to public/index.php
+RewriteRule ^$ public/index.php [QSA,L]
+
+# Redirect all other requests to public/index.php
+RewriteRule ^(.*)$ public/index.php [QSA,L]

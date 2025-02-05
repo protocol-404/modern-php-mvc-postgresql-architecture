@@ -11,17 +11,17 @@ class UserController
 {
     use Twig;
 
-    public function singUp($username, $email, $password) {
+    public function signUp($username, $email, $password) {
         $user = new User($id = null, $username, $email, $password);
-        $msg = $user->singUp();
+        $msg = $user->signUp();
         if ($msg == "Message successful") {
-            $this->rander('home.twig', ['success' => 'Account created successfully!']);
+            $this->render('home.twig', ['success' => 'Account created successfully!']);
         } else {
-            $this->rander('signup.twig', ['error' => $msg]);
+            $this->render('singup.twig', ['error' => $msg]);
         }
     }
 
     public function register() {
-        $this->rander('signup.twig');
+        $this->render('singup.twig');
     }
 }

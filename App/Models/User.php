@@ -20,7 +20,7 @@ class User {
         $this->password = $password;
     }
 
-    public function singUp()
+    public function signUp()
     {
         try {
             $pdo = Database::getConnection();
